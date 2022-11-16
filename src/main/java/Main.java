@@ -79,9 +79,7 @@ public class Main {
                     strFunctions.addItemStatic(list, str, maxsize);
                     break;
                 case 12:
-                    for (int j = 0; j < list.size(); j++) {
-                        System.out.println(list.get(j));
-                    }
+                    strFunctions.printList(list);
                     break;
                 case 0:
                     check = false;
