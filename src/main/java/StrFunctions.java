@@ -11,31 +11,29 @@ import java.util.Collections;
 public class StrFunctions {
     Scanner scan = new Scanner(System.in);
 
-    public void add(ArrayList<String> list){
-        System.out.println("Введите слово для добавления: ");
-        String str;
-        str = scan.nextLine();
-        list.add(str);
+    public boolean add(ArrayList<String> list, String str){
+        if(list.add(str)){
+        return true;}
+        else{ return false;}
     }
 
-    public void remove(ArrayList<String> list)
+    public String remove(ArrayList<String> list, String str)
     {
         if(list.isEmpty()){
             System.out.println("Пусто");
+            return "Пусто";
         }else {
-            System.out.println("Введите слово для удаления (происходит удаление первого вхождения слова, если есть одиноковые слова, повторите процедуру удаления )");
-            String str;
-            str = scan.nextLine();
             if(list.remove(str)){
                 System.out.println("Объект успешно удален");
             }
             else{
                 System.out.println("Такого объекта в списке нет");
             }
+            return str;
         }
     }
 
-    public void findEqual(ArrayList<String> list) {
+    public boolean findEqual(ArrayList<String> list) {
         HashMap<String, Integer> hm= new HashMap<>();
         for(int i=0; i< list.size(); i++)
         {
@@ -53,6 +51,7 @@ public class StrFunctions {
                 System.out.println(pair.getKey() + " " + pair.getValue());
             }
         }
+        return true;
     }
     public ArrayList<String> findItemsWithSubstring(ArrayList<String> list, String substring){
         ArrayList<String> foundItems = new ArrayList<>();
@@ -121,9 +120,10 @@ public class StrFunctions {
         return list;
     }
 
-    public void toXML (ArrayList < String > list) {
+    public boolean toXML (ArrayList < String > list) {
         FileOutputStream fos = null;
         XMLEncoder encoder = null;
+        boolean check = false;
         try {
             fos = new FileOutputStream("array.xml");
             encoder = new XMLEncoder(fos);
@@ -138,25 +138,33 @@ public class StrFunctions {
             if(encoder!=null)
                 encoder.close();
             try {
-                if(fos!=null)
+                if(fos!=null) {
+                    check = true;
                     fos.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return check;
     }
 
     public void reverse (ArrayList < String > list)
     {
-        String sb;
-        for (int i = 0; i < list.size(); i++) {
-            sb = new StringBuilder(list.get(i)).reverse().toString();
-            list.remove(i);
-            list.add(i, sb);
+        if(!list.isEmpty()) {
+            String sb;
+            for (int i = 0; i < list.size(); i++) {
+                sb = new StringBuilder(list.get(i)).reverse().toString();
+                list.remove(i);
+                list.add(i, sb);
+            }
+        }
+        else{
+            System.out.println("Список пустой");
         }
     }
 
-    public void statistics (ArrayList < String > list) {
+    public HashMap<Character, Integer> statistics (ArrayList < String > list) {
         StringBuilder newList = new StringBuilder();
         for(int i=0;i<list.size(); i++){
             newList.append(list.get(i));
@@ -178,6 +186,7 @@ public class StrFunctions {
         {
             System.out.println(pair.getKey() + " " + pair.getValue());
         }
+        return hm;
     }
 
 }

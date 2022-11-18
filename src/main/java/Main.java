@@ -28,10 +28,17 @@ public class Main {
             i = scan.nextInt();
             switch (i) {
                 case 1:
-                    strFunctions.add(list);
+                    System.out.println("Введите слово для добавления: ");
+                    String s;
+                    scan.nextLine();
+                    s = scan.nextLine();
+                    strFunctions.add(list, s);
                     break;
                 case 2:
-                    strFunctions.remove(list);
+                    System.out.println("Введите слово для удаления (происходит удаление первого вхождения слова, если есть одиноковые слова, повторите процедуру удаления )");
+                    scan.nextLine();
+                    s = scan.nextLine();
+                    strFunctions.remove(list, s);
                     break;
                 case 3:
                     strFunctions.findEqual(list);
