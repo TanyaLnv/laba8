@@ -53,67 +53,69 @@ public class StrFunctions {
         }
         return true;
     }
-    public ArrayList<String> findItemsWithSubstring(ArrayList<String> list, String substring){
+
+    public ArrayList<String> findItemsWithSubstring(ArrayList<String> list, String substring) {
         ArrayList<String> foundItems = new ArrayList<>();
-        for (String item : list) {
-            if(item.contains(substring)){
-                foundItems.add(item);
+        if(substring != null) {
+            for (String item : list) {
+                if (item.contains(substring)) {
+                    foundItems.add(item);
+                }
             }
         }
+        printFoundItems(foundItems);
         return foundItems;
     }
 
     public ArrayList<String> initializeListFromTextFile(String pathToTextFile){
         var fileLinesList = new ArrayList<String>();
-        try(var fileReader = new BufferedReader(new FileReader(pathToTextFile))){
+        try (var fileReader = new BufferedReader(new FileReader(pathToTextFile))) {
             String line = fileReader.readLine();
-            while(line != null){
+            while (line != null) {
                 fileLinesList.add(line);
                 line = fileReader.readLine();
             }
-        }catch (FileNotFoundException e) {
-            System.out.println("File wasn't found.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден.");
         } catch (IOException e) {
-            System.out.println("IOException");
+            System.out.println("Ошибка чтения файла.");
         }
         printList(fileLinesList);
         return fileLinesList;
     }
 
-    public void printList(ArrayList<String> collection){
-        if(collection.size() == 0){
-            System.out.println("Collection is empty.");
-        } else {
-            System.out.println("Collection items:");
-            for(var item : collection){
-                System.out.println(item);
+    public boolean compareInnerObjects(ArrayList<String> list, int firstItemIndex, int secondItemIndex) {
+        boolean isEqual = false;
+        if (firstItemIndex >= 0 && secondItemIndex >= 0) {
+            String firstItem = list.get(firstItemIndex);
+            String secondItem = list.get(secondItemIndex);
+            if(firstItem != null){
+                isEqual = firstItem.equals(secondItem);
+            } else {
+                isEqual = (secondItem == null);
             }
         }
-    }
-
-    public boolean compareInnerObjects(ArrayList<String> list, int firstItemIndex, int secondItemIndex){
-        if(firstItemIndex < 0 || secondItemIndex < 0){
-            return false;
+        if (isEqual) {
+            System.out.println("Строки одинаковые");
+        } else {
+            System.out.println("Строки разные");
         }
-        String firstItem = list.get(firstItemIndex).trim();
-        String secondItem = list.get(secondItemIndex).trim();
-        return firstItem.equals(secondItem);
+        return isEqual;
     }
 
-    public ArrayList<Integer> itemLengthList(ArrayList<String> list){
-        var itemLengthList = new ArrayList<Integer>();
-        for(var item : list){
-            itemLengthList.add(item.length());
-        }
-        Collections.sort(itemLengthList);
-        return itemLengthList;
+    public ArrayList<String> printSortedByStringLengthList(ArrayList<String> list) {
+        var sortedByStringLengthListCopy = new ArrayList<String>(list);
+        sortedByStringLengthListCopy.sort(new StringComparator());
+        printList(sortedByStringLengthListCopy);
+        return sortedByStringLengthListCopy;
     }
 
-    public ArrayList<String> addItemStatic(ArrayList<String> list, String itemToAdd, int maxsize){
-        if(maxsize < 0){
+    public ArrayList<String> addItemStatic(ArrayList<String> list, String itemToAdd, int maxsize) {
+        if (maxsize <= 0) {
+            list.clear();
             return list;
         }
-        while(list.size() >= maxsize){
+        while (list.size() >= maxsize) {
             list.remove(0);
         }
         list.add(itemToAdd);
@@ -187,6 +189,33 @@ public class StrFunctions {
             System.out.println(pair.getKey() + " " + pair.getValue());
         }
         return hm;
+    }
+
+
+    public void printList(ArrayList<String> collection) {
+        if(collection != null) {
+            if (collection.size() == 0) {
+                System.out.println("Коллекция пуста.");
+            } else {
+                System.out.println("Строки из коллекции:");
+                for (var item : collection) {
+                    System.out.println(item);
+                }
+            }
+        }
+    }
+
+    public void printFoundItems(ArrayList<String> foundItems) {
+        if (foundItems != null) {
+            if (foundItems.size() > 0) {
+                System.out.println("Найденные строки:");
+                for (var item : foundItems) {
+                    System.out.println(item);
+                }
+                return;
+            }
+        }
+        System.out.println("Подходящие строки не найдены.");
     }
 
 }

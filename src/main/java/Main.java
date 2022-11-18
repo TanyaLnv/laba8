@@ -3,29 +3,37 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> list = new ArrayList();
-        StrFunctions strFunctions = new StrFunctions();
-        Scanner scan = new Scanner(System.in);
-        int i;
+        var list = new ArrayList();
+        var strFunctions = new StrFunctions();
+        var scan = new Scanner(System.in);
+
+        int i;//код меню
         boolean check = true;
+
         System.out.println("Введите максимальную размерность при статическом добавлении элементов:");
-        int maxsize = scan.nextInt();
+        int maxsize = enterInt(scan);
+        while(maxsize<=0){
+            System.out.print("Требуется целое положительное число. Повторите ввод:");
+            maxsize = enterInt(scan);
+        }
+
+        System.out.println("1 - Добавление\n" +
+                "2 - Удаление\n" +
+                "3 - Поиск одинаковых элементов\n" +
+                "4 - Выгрузка\n" +
+                "5 - Реверс\n" +
+                "6 - Статистика символов\n" +
+                "7 - Поиск подстроки\n" +
+                "8 - Инициализация\n" +
+                "9 - Сравнение элементов\n" +
+                "10 - Длина строк\n" +
+                "11 - Статическое добавление\n" +
+                "12 - Вывод на экран\n" +
+                "0 - Выход\n");
         while (check) {
-            System.out.println("Выберите действие");
-            System.out.println(" 1 - Добавление\n" +
-                    "2 - Удаление\n" +
-                    "3 - Поиск одинаковых элементов\n" +
-                    "4 - Выгрузка\n" +
-                    "5 - Реверс\n" +
-                    "6 - Статистика символов\n" +
-                    "7 - Поиск подстроки\n" +
-                    "8 - Инициализация\n" +
-                    "9 - Сравнение элементов\n" +
-                    "10 - Длина строк\n" +
-                    "11 - Статическое добавление\n" +
-                    "12 - Вывод на экран\n" +
-                    "0 - Выход\n");
-            i = scan.nextInt();
+            System.out.println("\nВыберите действие");
+            i = enterInt(scan);
+
             switch (i) {
                 case 1:
                     System.out.println("Введите слово для добавления: ");
@@ -54,35 +62,36 @@ public class Main {
                     break;
                 case 7:
                     System.out.print("Введите подстроку:");
-                    scan.nextLine();
                     String substring = scan.nextLine();
-                    strFunctions.printList(strFunctions.findItemsWithSubstring(list, substring));
+                    strFunctions.findItemsWithSubstring(list, substring);
                     break;
                 case 8:
-                    System.out.print("Введите путь к файлу:");
-                    scan.nextLine();
+                    System.out.print("Введите путь к файлу для инициализации коллекции:");
                     String pathToFile = scan.nextLine();
-                    strFunctions.initializeListFromTextFile(pathToFile);
+                    System.out.println(pathToFile);
+                    list = strFunctions.initializeListFromTextFile(pathToFile);
                     break;
                 case 9:
                     System.out.print("Введите индексы объектов для сравнения:");
-                    int firstItemIndex = scan.nextInt();
-                    int secondItemIndex = scan.nextInt();
-                    if (strFunctions.compareInnerObjects(list, firstItemIndex, secondItemIndex)) {
-                        System.out.println("Строки одинаковые");
-                    } else {
-                        System.out.println("Строки разные");
-                    }
+                    int firstItemIndex, secondItemIndex;
+
+                    System.out.print("Индекс первого объекта:");
+                    firstItemIndex = enterInt(scan);
+
+                    System.out.print("Индекс второго объекта:");
+                    secondItemIndex = enterInt(scan);
+
+                    strFunctions.compareInnerObjects(list, firstItemIndex, secondItemIndex);
                     break;
                 case 10:
-                    for (var length : strFunctions.itemLengthList(list)) {
-                        System.out.println(length);
-                    }
+                    strFunctions.printSortedByStringLengthList(list);
                     break;
                 case 11:
                     System.out.print("Введите строку для статического добавления:");
-                    scan.nextLine();
+
                     String str = scan.nextLine();
+                    System.out.println(str);
+
                     strFunctions.addItemStatic(list, str, maxsize);
                     break;
                 case 12:
@@ -94,8 +103,18 @@ public class Main {
                 default:
                     System.out.println("Такого действия нет. Повторите ввод");
             }
-
         }
-        //Изменения Наташи Масловской
+    }
+
+    public static int enterInt(Scanner scan){
+        while (!scan.hasNextInt()){
+            scan.nextLine();
+            System.out.print("Требуется целое число. Повторите ввод:");
+        }
+        int number = scan.nextInt();
+        if(scan.hasNextLine()){
+            scan.nextLine();
+        }
+        return number;
     }
 }
