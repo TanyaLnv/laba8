@@ -1,9 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import java.util.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +20,7 @@ public class StrFunctionsTest {
         list.add("dog");
         list.add("frog");
         list.add("cat");
+        list.add("do");
     }
     @Test
     public void add(){
@@ -31,7 +30,7 @@ public class StrFunctionsTest {
 
     @Test
     public void remove(){
-        assertEquals("Пусто", strFunctions.remove(list, "Nice"));
+        assertEquals("One", strFunctions.remove(list, "One"));
     }
 
     @Test
@@ -98,8 +97,8 @@ public class StrFunctionsTest {
 
     @Test
     void compareInnerObjects() {
-        int firstItemIndex = 1;
-        int secondItemIndex = 4;
+        int firstItemIndex = 2;
+        int secondItemIndex = 5;
 
         boolean isEqual = strFunctions.compareInnerObjects(list, firstItemIndex, secondItemIndex);
 
@@ -108,10 +107,8 @@ public class StrFunctionsTest {
 
     @Test
     void printSortedByStringLengthList() {
-
         ArrayList<String> actual = strFunctions.printSortedByStringLengthList(list);
-
-
+        assertEquals("do",actual.get(0));
     }
 
     @Test

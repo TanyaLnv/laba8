@@ -38,13 +38,11 @@ public class Main {
                 case 1:
                     System.out.println("Введите слово для добавления: ");
                     String s;
-                    scan.nextLine();
                     s = scan.nextLine();
                     strFunctions.add(list, s);
                     break;
                 case 2:
                     System.out.println("Введите слово для удаления (происходит удаление первого вхождения слова, если есть одиноковые слова, повторите процедуру удаления )");
-                    scan.nextLine();
                     s = scan.nextLine();
                     strFunctions.remove(list, s);
                     break;
@@ -72,7 +70,7 @@ public class Main {
                     list = strFunctions.initializeListFromTextFile(pathToFile);
                     break;
                 case 9:
-                    System.out.print("Введите индексы объектов для сравнения:");
+                    System.out.println("Введите индексы объектов для сравнения");
                     int firstItemIndex, secondItemIndex;
 
                     System.out.print("Индекс первого объекта:");
@@ -88,10 +86,7 @@ public class Main {
                     break;
                 case 11:
                     System.out.print("Введите строку для статического добавления:");
-
                     String str = scan.nextLine();
-                    System.out.println(str);
-
                     strFunctions.addItemStatic(list, str, maxsize);
                     break;
                 case 12:

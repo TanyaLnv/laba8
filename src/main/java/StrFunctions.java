@@ -94,19 +94,21 @@ public class StrFunctions {
             } else {
                 isEqual = (secondItem == null);
             }
-        }
-        if (isEqual) {
-            System.out.println("Строки одинаковые");
+            if (isEqual) {
+                System.out.println("Строки одинаковые");
+            } else {
+                System.out.println("Строки разные");
+            }
         } else {
-            System.out.println("Строки разные");
+            System.out.println("Неверные индексы объектов");
         }
         return isEqual;
     }
 
     public ArrayList<String> printSortedByStringLengthList(ArrayList<String> list) {
-        var sortedByStringLengthListCopy = new ArrayList<String>(list);
+        var sortedByStringLengthListCopy = new ArrayList<>(list);
         sortedByStringLengthListCopy.sort(new StringComparator());
-        printList(sortedByStringLengthListCopy);
+        printListWithStringLength(sortedByStringLengthListCopy);
         return sortedByStringLengthListCopy;
     }
 
@@ -200,6 +202,19 @@ public class StrFunctions {
                 System.out.println("Строки из коллекции:");
                 for (var item : collection) {
                     System.out.println(item);
+                }
+            }
+        }
+    }
+
+    public void printListWithStringLength(ArrayList<String> collection) {
+        if(collection != null) {
+            if (collection.size() == 0) {
+                System.out.println("Коллекция пуста.");
+            } else {
+                System.out.println("Строки из коллекции:");
+                for (var item : collection) {
+                    System.out.println(item + " - " + item.length());
                 }
             }
         }
