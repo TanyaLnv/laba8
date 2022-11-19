@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class StrFunctions {
     Scanner scan = new Scanner(System.in);
-
+     int a;
     public boolean add(ArrayList<String> list, String str){
         if(list.add(str)){
         return true;}
